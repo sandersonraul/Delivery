@@ -3,11 +3,13 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Home from './src/pages/home/index';
 import Address from './src/pages/address/index';
+import SearchAddress from './src/pages/searchAddress/index';
 
 export default function App() {
   return (
   //  <Home/>
-  <Address/>
+  // <Address/>
+  <SearchAddress/>
   );
 }
 
