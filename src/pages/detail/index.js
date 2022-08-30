@@ -17,43 +17,48 @@ import {
   QuantityCar,
   NumberDelivery,
   ViewQuantityDelivery,
+  TextAux,
+  ViewTest,
 } from "./style";
 
 function Detail() {
   return (
     <SafeAreaView>
       <ViewMain>
+        <ViewTest></ViewTest>
         <ViewHeader>
           <Image source={file} />
         </ViewHeader>
-        <ViewContent>
-          <TitleProduct>Carlsberg Premium Beer</TitleProduct>
+        <ViewContent style={{ height: "317px" }}>
+          <ViewTest>
+            <TextAux>Executivo</TextAux>
+            <TitleProduct>Carlsberg Premium Beer</TitleProduct>
 
-          <ViewAux></ViewAux>
-          <ViewAux>
-            <ViewPrice>
-              <FromPrice>Por</FromPrice>
-              <PriceProduct>R$ 3,50</PriceProduct>
-            </ViewPrice>
-            <ViewQuantityDelivery>
-              <Text>menos</Text>
-              <Text>1</Text>
-              <Text>mais</Text>
-            </ViewQuantityDelivery>
-          </ViewAux>
-          <ViewAux>
-            <ViewDescription>
-              <TitleDescription>Descrição</TitleDescription>
-              <DescriptionProduct>
-                Carlsberg Smooth, a premium mild beer crafted with the finest
-                European Barley for a rich and smooth taste. Brewed specially
-                for the Indian palate with a refreshing and elegant taste,
-                Carlsberg Smooth offers a unique product and a new experience to
-                our consumers
-              </DescriptionProduct>
-            </ViewDescription>
-          </ViewAux>
-
+            <ViewAux></ViewAux>
+            <ViewAux>
+              <ViewPrice>
+                <FromPrice>Por</FromPrice>
+                <PriceProduct>R$ 3,50</PriceProduct>
+              </ViewPrice>
+              <ViewQuantityDelivery>
+                <Text>menos</Text>
+                <Text>1</Text>
+                <Text>mais</Text>
+              </ViewQuantityDelivery>
+            </ViewAux>
+            <ViewAux>
+              <ViewDescription>
+                <TitleDescription>Descrição</TitleDescription>
+                <DescriptionProduct>
+                  Carlsberg Smooth, a premium mild beer crafted with the finest
+                  European Barley for a rich and smooth taste. Brewed specially
+                  for the Indian palate with a refreshing and elegant taste,
+                  Carlsberg Smooth offers a unique product and a new experience
+                  to our consumers
+                </DescriptionProduct>
+              </ViewDescription>
+            </ViewAux>
+          </ViewTest>
           <ButtonAddCar>
             <Text>Adicionar ao Carrinho</Text>
             <QuantityCar>
