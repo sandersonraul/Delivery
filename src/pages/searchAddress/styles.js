@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-export const ViewContainer = styled.View`
-    top: 70px;
+export const ViewContainerNew = styled.View`
+    top: 110px;
     flex: 1;
     background-color: #fff;
     align-items: center;
@@ -29,7 +29,7 @@ export const ViewSearchAddress = styled.View`
 export const TextSearchAddress = styled.Text`
     width: 297px;
     height: 29px;
-    left: 50px;
+    left: 55px;
     top: 146px;
 
     font-weight: 500;
@@ -157,4 +157,9 @@ export const TextButtonSaveSaved = styled.Text`
     align-items: center;
 
     color: #FFFFFF;
+`;
+
+export const ViewImageNew = styled.View`
+    top: 70px;
+    left: 390px;
 `;

@@ -9,7 +9,7 @@ export const ViewContainer = styled.View`
 `;
 
 export const ViewCity = styled.View`
-    top: -350px;
+    top: -320px;
     left: -110px;
 `;
 
@@ -131,7 +131,7 @@ export const ViewButtonOther = styled.View`
 export const ButtonSave = styled.TouchableOpacity`
     width: 340px;
     height: 40px;
-    top: 50px;
+    top: 80px;
     
     background: #F9B233;
     border-radius: 10px;
@@ -150,4 +150,9 @@ export const TextButtonSave = styled.Text`
     align-items: center;
 
     color: #FFFFFF;
+`;
+
+export const ViewImage = styled.View`
+    top: 114px;
+    left: 350px;
 `;

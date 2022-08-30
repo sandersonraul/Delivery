@@ -17,7 +17,8 @@ import {
     TextButtonSalvarComoGrey,
     ViewButtonOther,
     ButtonSave,
-    TextButtonSave
+    TextButtonSave,
+    ViewImage,
 } from './style';
 
 export default function Address() {
@@ -26,9 +27,11 @@ export default function Address() {
             <ViewCity>
                 <TextCity>Pau dos Ferros</TextCity>
                 <TextCityComplement>Rio Grande do Norte / Rn</TextCityComplement>
-                <Image
-                    source={require('../../images/fi-br-cross.png')}
-                />
+                <ViewImage>
+                    <Image
+                        source={require('../../images/fi-br-cross.png')}
+                    />
+                </ViewImage>
             </ViewCity>
             <ViewInputs>
                 <Input placeholder="Bairro"/>

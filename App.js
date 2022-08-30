@@ -7,9 +7,7 @@ import SearchAddress from './src/pages/searchAddress/index';
 
 export default function App() {
   return (
-  //  <Home/>
-  // <Address/>
-  <SearchAddress/>
+   <Home/>
   );
 }
 

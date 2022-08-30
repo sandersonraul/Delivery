@@ -20,14 +20,21 @@ import {
     TextSavedEnderecos,
     ButtonSaveSaved,
     TextButtonSaveSaved,
+    ViewContainerNew,
+    ViewImageNew,
 } from './styles';
 
 export default function SearchAdress(){
     return (
-        <ViewContainer>
+        <ViewContainerNew>
             <ViewSearchAddress>
                 <TextSearchAddress>Procurar Endereço</TextSearchAddress>
                 <Input placeholder="Buscar..."/>
+                <ViewImageNew>
+                    <Image
+                        source={require('../../images/fi-br-cross.png')}
+                    />
+                </ViewImageNew>
             </ViewSearchAddress>
 
             <ViewLocation>
@@ -67,6 +74,6 @@ export default function SearchAdress(){
                 <TextButtonSaveSaved>Adicionar Endereço</TextButtonSaveSaved>
             </ButtonSaveSaved>
 
-        </ViewContainer>
+        </ViewContainerNew>
     )
 }
