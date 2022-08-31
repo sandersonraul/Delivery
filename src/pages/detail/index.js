@@ -1,6 +1,8 @@
+import { useEffect, useState } from "react";
 import { Text, SafeAreaView, Image } from "react-native";
 import styled from "styled-components";
 import file from "../../images/image-product.png";
+import { detailProduct } from "../../utils/apiBase";
 import {
   ViewAux,
   ViewContent,
@@ -21,24 +23,38 @@ import {
   ViewTest,
 } from "./style";
 
-function Detail() {
+export default function Detail({ route, navigation }) {
+  const { id } = route.params;
+  const [product, setProduct] = useState(null);
+
+  async function handleProduct(idProduct) {
+    const pro = await detailProduct(idProduct);
+    setProduct(pro);
+  }
+
+  useEffect(() => {
+    handleProduct(id);
+  }, []);
+  useEffect(() => {
+    console.log(product);
+  }, [product]);
   return (
-    <SafeAreaView>
+    <>
       <ViewMain>
         <ViewTest></ViewTest>
         <ViewHeader>
           <Image source={file} />
         </ViewHeader>
-        <ViewContent style={{ height: "317px" }}>
+        <ViewContent>
           <ViewTest>
-            <TextAux>Executivo</TextAux>
-            <TitleProduct>Carlsberg Premium Beer</TitleProduct>
+            <TextAux>{product?.exclusivo && "Exclusivo"}</TextAux>
+            <TitleProduct>{product?.nome}</TitleProduct>
 
             <ViewAux></ViewAux>
             <ViewAux>
               <ViewPrice>
                 <FromPrice>Por</FromPrice>
-                <PriceProduct>R$ 3,50</PriceProduct>
+                <PriceProduct>R$ {product?.valor}</PriceProduct>
               </ViewPrice>
               <ViewQuantityDelivery>
                 <Text>menos</Text>
@@ -67,8 +83,6 @@ function Detail() {
           </ButtonAddCar>
         </ViewContent>
       </ViewMain>
-    </SafeAreaView>
+    </>
   );
 }
-
-export default Detail;
