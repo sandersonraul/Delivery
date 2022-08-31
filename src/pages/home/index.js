@@ -54,29 +54,23 @@ export default function Home({ route, navigation }) {
         title="Filé a Parmegiana aaa"
         descr="filé a parmegiana com grandes pedaços de carne e varios macarrão"
         price="R$50,50"
-        id={4}
+        id={3}
         navigation={navigation}
       />
-      {/* <FlatListMenu
+      <FlatListMenu
         title="X-Tudo"
         descr="filé a parmegiana com grandes pedaços de carne e varios macarrão "
         price="R$20,50"
-        onPress={() => {
-          navigation.navigate("detail", {
-            id: 4,
-          });
-        }}
+        id={4}
+        navigation={navigation}
       />
       <FlatListMenu
         title="Picanha assada"
         descr="filé a parmegiana com grandes pedaços de carne e varios macarrão"
         price="R$90"
-        onPress={() => {
-          navigation.navigate("detail", {
-            id: 4,
-          });
-        }}
-      /> */}
+        id={2}
+        navigation={navigation}
+      />
     </Wrapper>
   );
 }

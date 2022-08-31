@@ -103,3 +103,20 @@ export const ViewTest = styled.View`
   display: flex;
   flex-direction: column;
 `;
+
+export const ViewSum = styled.TouchableOpacity`
+  border: 0.5px solid #f9b233;
+  border-radius: 3px;
+  width: 26px;
+  height: 27px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+export const QuantityDelivery = styled.Text`
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  color: #000000;
+  margin: 0px 32px;
+`;

@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { Text, SafeAreaView, Image } from "react-native";
-import styled from "styled-components";
 import file from "../../images/image-product.png";
+import menos from "../../images/menos.png";
+import mais from "../../images/mais.png";
 import { detailProduct } from "../../utils/apiBase";
 import {
   ViewAux,
@@ -21,23 +22,34 @@ import {
   ViewQuantityDelivery,
   TextAux,
   ViewTest,
+  ViewSum,
+  QuantityDelivery,
 } from "./style";
 
 export default function Detail({ route, navigation }) {
   const { id } = route.params;
   const [product, setProduct] = useState(null);
+  const [count, setCount] = useState(1);
+  const [countCar, setCountCar] = useState(0);
 
   async function handleProduct(idProduct) {
     const pro = await detailProduct(idProduct);
     setProduct(pro);
   }
+  function handleCount(type) {
+    if (type == "increment") {
+      setCount(count + 1);
+    } else {
+      setCount(count - 1);
+    }
+  }
+  function resetCount() {
+    setCount(1);
+  }
 
   useEffect(() => {
     handleProduct(id);
   }, []);
-  useEffect(() => {
-    console.log(product);
-  }, [product]);
   return (
     <>
       <ViewMain>
@@ -57,9 +69,14 @@ export default function Detail({ route, navigation }) {
                 <PriceProduct>R$ {product?.valor}</PriceProduct>
               </ViewPrice>
               <ViewQuantityDelivery>
-                <Text>menos</Text>
-                <Text>1</Text>
-                <Text>mais</Text>
+                <ViewSum onPress={() => handleCount("decrement")}>
+                  <Image source={menos} />
+                </ViewSum>
+
+                <QuantityDelivery>{count}</QuantityDelivery>
+                <ViewSum onPress={() => handleCount("increment")}>
+                  <Image source={mais} />
+                </ViewSum>
               </ViewQuantityDelivery>
             </ViewAux>
             <ViewAux>
@@ -75,10 +92,16 @@ export default function Detail({ route, navigation }) {
               </ViewDescription>
             </ViewAux>
           </ViewTest>
-          <ButtonAddCar>
+          <ButtonAddCar
+            onPress={() => {
+              setCountCar(countCar + 1);
+              resetCount();
+              navigation.navigate("home");
+            }}
+          >
             <Text>Adicionar ao Carrinho</Text>
             <QuantityCar>
-              <NumberDelivery>3</NumberDelivery>
+              <NumberDelivery>{countCar}</NumberDelivery>
             </QuantityCar>
           </ButtonAddCar>
         </ViewContent>
