@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { Text, SafeAreaView, Image } from "react-native";
+import { Text, StyleSheet, Image } from "react-native";
 import file from "../../images/image-product.png";
 import menos from "../../images/menos.png";
 import mais from "../../images/mais.png";
-import { detailProduct } from "../../utils/apiBase";
+import { baseURL, Login } from "../../utils/apiBase";
 import {
   ViewAux,
   ViewContent,
@@ -25,16 +25,19 @@ import {
   ViewSum,
   QuantityDelivery,
 } from "./style";
+import axios from "axios";
 
 export default function Detail({ route, navigation }) {
   const { id } = route.params;
   const [product, setProduct] = useState(null);
   const [count, setCount] = useState(1);
-  const [countCar, setCountCar] = useState(0);
+  const [countCar, setCountCar] = useState(1);
 
   async function handleProduct(idProduct) {
-    const pro = await detailProduct(idProduct);
-    setProduct(pro);
+    const res = await axios.get(
+      `${baseURL}api/lojas/listar_detalhes_produto/${idProduct}/`
+    );
+    setProduct(res.data);
   }
   function handleCount(type) {
     if (type == "increment") {
@@ -43,8 +46,24 @@ export default function Detail({ route, navigation }) {
       setCount(count - 1);
     }
   }
-  function resetCount() {
-    setCount(1);
+  function calc(value) {
+    return count * value;
+  }
+  async function SentRequest() {
+    const user = await Login();
+    const res = await axios.post(
+      `${baseURL}api/lojas/cadastrar_pedido/`,
+      {
+        valor_total: calc(product?.valor),
+        loja: product?.loja?.id,
+        produtos: [product?.id],
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${user?.tokens?.access}`,
+        },
+      }
+    );
   }
 
   useEffect(() => {
@@ -55,7 +74,12 @@ export default function Detail({ route, navigation }) {
       <ViewMain>
         <ViewTest></ViewTest>
         <ViewHeader>
-          <Image source={file} />
+          <Image
+            style={styles.tinyLogo}
+            source={{
+              uri: product?.imagem,
+            }}
+          />
         </ViewHeader>
         <ViewContent>
           <ViewTest>
@@ -83,23 +107,20 @@ export default function Detail({ route, navigation }) {
               <ViewDescription>
                 <TitleDescription>Descrição</TitleDescription>
                 <DescriptionProduct>
-                  Carlsberg Smooth, a premium mild beer crafted with the finest
-                  European Barley for a rich and smooth taste. Brewed specially
-                  for the Indian palate with a refreshing and elegant taste,
-                  Carlsberg Smooth offers a unique product and a new experience
-                  to our consumers
+                  {product?.descricao
+                    ? product?.descricao
+                    : "Carlsberg Smooth, a premium mild beer crafted with the finest European Barley for a rich and smooth taste. Brewed specially for the Indian palate with a refreshing and elegant taste, Carlsberg Smooth offers a unique product and a new experience to our consumers"}
                 </DescriptionProduct>
               </ViewDescription>
             </ViewAux>
           </ViewTest>
           <ButtonAddCar
             onPress={() => {
-              setCountCar(countCar + 1);
-              resetCount();
-              navigation.navigate("home");
+              SentRequest();
+              alert("Pedido realizado!");
             }}
           >
-            <Text>Adicionar ao Carrinho</Text>
+            <Text>Finalizar Pedido</Text>
             <QuantityCar>
               <NumberDelivery>{countCar}</NumberDelivery>
             </QuantityCar>
@@ -109,3 +130,10 @@ export default function Detail({ route, navigation }) {
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  tinyLogo: {
+    width: "100%",
+    height: 320,
+  },
+});
