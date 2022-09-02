@@ -1,5 +1,10 @@
 import axios from "axios";
 
+export const apiClient = axios.create({
+  baseURL: "http://207.246.118.151/",
+  timeout: 1000,
+});
+
 export const baseURL = "http://207.246.118.151/";
 
 export async function Login() {

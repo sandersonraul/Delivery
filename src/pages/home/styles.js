@@ -1,14 +1,16 @@
 import styled from 'styled-components/native';
+import { FlatList } from 'react-native';
 
 export const Wrapper = styled.SafeAreaView`
-  flex: 1;
-  margin-top: 42px;
+  flex: 1; 
+  background-color: #fff;
 `;
 
 export const Profile = styled.View`
    flex-direction: row;
    justify-content:space-between;
    padding: 0 30px;
+   margin-top: 12%;
 `;
 
 export const Location = styled.View`
@@ -76,5 +78,10 @@ export const LabelStatus = styled.Text`
    line-height: 15px;
    color: #46DE99;
 `;
+
+export const List = styled(FlatList).attrs({
+})`
+`;
+
 
 
