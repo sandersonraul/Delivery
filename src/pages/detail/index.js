@@ -29,6 +29,7 @@ import axios from "axios";
 
 export default function Detail({ route, navigation }) {
   const { id } = route.params;
+  console.log(id)
   const [product, setProduct] = useState(null);
   const [count, setCount] = useState(1);
   const [countCar, setCountCar] = useState(1);
