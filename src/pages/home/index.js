@@ -1,5 +1,4 @@
-import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, {useState, useEffect} from "react";
 import {
   Wrapper,
   Profile,
@@ -9,27 +8,42 @@ import {
   Img,
   Location,
   Store,
-  Hour,
-  Delivery,
-  ItemHour,
-  LabelHour,
   LableStore,
-  StatusDelivery,
-  LabelStatus,
+  List
 } from "./styles";
 import { Ionicons } from "@expo/vector-icons";
-
 import ImageProfile from "../../images/profile.png";
 import Logotipo from "../../images/logotipo.png";
-
 import PainelHour from "../../components/PanelHour";
 import Input from "../../components/Input";
-import ItemCategory from "../../components/ItemCategory";
 import FlatListCategory from "../../components/FlatListCategory";
-import ItemMenu from "../../components/ItemMenu";
 import FlatListMenu from "../../components/FlatListMenu";
+import { apiClient } from "../../utils/apiBase";
 
 export default function Home({ route, navigation }) {
+  const [produtos, setProdutos] = useState([])
+  const [loja, setLoja] = useState([])
+   useEffect(()=>{
+    async function getLoja(){
+      try{
+        const { data } = await apiClient.get('api/lojas/listar_lojas/')
+        setLoja(data.results[0])
+      } catch(err){
+        console.log(err)
+      }
+    }
+    async function getProdutos(){
+        try{
+          const { data } = await apiClient.get('api/lojas/listar_produtos/')
+          setProdutos(data.results)
+        } catch(err){
+          console.warn(err)
+        }
+      }
+    getLoja()
+    getProdutos()
+   })
+
   return (
     <Wrapper>
       <Profile>
@@ -44,33 +58,25 @@ export default function Home({ route, navigation }) {
       </Profile>
       <Store>
         <Img source={Logotipo} />
-        <LableStore>Restaurante e Pizzaria Divino Sabor</LableStore>
+        <LableStore>{loja.nome}</LableStore>
       </Store>
 
       <PainelHour />
       <Input />
       <FlatListCategory />
-      <FlatListMenu
-        title="Filé a Parmegiana aaa"
-        descr="filé a parmegiana com grandes pedaços de carne e varios macarrão"
-        price="R$50,50"
-        id={3}
-        navigation={navigation}
-      />
-      <FlatListMenu
-        title="X-Tudo"
-        descr="filé a parmegiana com grandes pedaços de carne e varios macarrão "
-        price="R$20,50"
-        id={4}
-        navigation={navigation}
-      />
-      <FlatListMenu
-        title="Picanha assada"
-        descr="filé a parmegiana com grandes pedaços de carne e varios macarrão"
-        price="R$90"
-        id={2}
-        navigation={navigation}
-      />
+      <List 
+            data={produtos}
+            renderItem={({item})=>
+               <FlatListMenu                
+                  title={item.nome} 
+                  price={item.valor}
+                  descr={item.descricao}
+                  id={item.id}
+                  navigation={navigation}
+                  keyExtractor={item => item.id}
+               />
+            }
+         />
     </Wrapper>
   );
 }
